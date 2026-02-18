@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Сайт Долбаёба</title>
+    <style>
+    /* ===== БАЗОВЫЕ СТИЛИ ===== */
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        background: #0a0a0a;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        transition: background 0.3s;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    @media (min-width: 768px) {
+        .button-grid {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .hello, .poka {
+            width: 280px;
+            height: 280px;
+            font-size: 44px;
+            margin: 0;
+        }
+    }
+    
+    .counter {
+        background: #111;
+        border: 2px solid #f0f;
+        border-radius: 60px;
+        padding: 16px 24px;
+        margin: 20px 0;
+        text-align: center;
+        font-size: clamp(18px, 5vw, 24px);
+        color: #fff;
+        position: relative;
+        z-index: 5;
+        width: 100%;
+        max-width: 500px;
+        box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .counter span {
+        margin: 0 10px;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    
+    .counter span span {
+        color: #f0f;
+        font-weight: 700;
+        font-size: clamp(22px, 6vw, 28px);
+        margin: 0 5px;
+    }
+
+    .ghost-progress {
+        color: #f0f;
+        font-size: clamp(14px, 4vw, 18px);
+        background: #222;
+        padding: 5px 15px;
+        border-radius: 30px;
+        border: 1px solid #f0f;
+        display: inline-block;
+        margin-left: 10px;
+    }
+    
+    .rainbow-title {
+        text-align: center;
+        font-size: clamp(28px, 8vw, 48px);
+        margin: 20px 0 10px;
+        font-weight: 800;
+        background: linear-gradient(45deg, 
+            #ff0000, #ff8800, #ffff00, #00ff00, 
+            #0088ff, #0000ff, #8800ff, #ff00ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: rainbow 4s linear infinite;
+        background-size: 300% 300%;
+        max-width: 100%;
+        word-break: break-word;
+    }
+    
+    @keyframes rainbow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    .hello, .poka {
+        width: 240px;
+        height: 240px;
+        margin: 12px auto;
+        text-align: center;
+        line-height: 240px;
+        font-size: 38px;
+        font-weight: 600;
+        border-radius: 40px;
+        cursor: pointer;
+        border: 3px solid #f0f;
+        position: relative;
+        z-index: 5;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 0 25px currentColor;
+        user-select: none;
+        touch-action: manipulation;
+    }
+    
+    .hello {
+        background: #0ff;
+        color: #111;
+    }
+    
+    .poka {
+        background: #ff0;
+        color: #111;
+    }
+    
+    @media (hover: hover) and (pointer: fine) {
+        .hello:hover {
+            transform: scale(1.05) rotate(-1deg);
+            background: #0ff;
+            filter: brightness(1.2);
+            box-shadow: 0 0 40px #0ff;
+        }
+        
+        .poka:hover {
+            transform: scale(1.05) rotate(1deg);
+            background: #ff0;
+            filter: brightness(1.2);
+            box-shadow: 0 0 40px #ff0;
+        }
+        
+        a:hover {
+            transform: scale(1.1);
+            color: #ff0;
+            text-shadow: 0 0 15px #0f0;
+        }
+        
+        .theme-btn:hover {
+            background: #f0f;
+            color: #111;
+            box-shadow: 0 0 30px #f0f;
+        }
+        
+        .secret:hover {
+            background: #222;
+            color: #fff;
+            border-color: #f0f;
+        }
+    }
+    
+    .hello:active, .poka:active {
+        transform: scale(0.92) rotate(2deg);
+        filter: brightness(1.5);
+        box-shadow: 0 0 40px currentColor;
+    }
+    
+    .hello:active {
+        background: #00f;
+        color: #fff;
+    }
+    
+    .poka:active {
+        background: #f80;
+        color: #fff;
+    }
+    
+    a {
+        display: block;
+        text-align: center;
+        font-size: clamp(24px, 6vw, 36px);
+        margin: 20px;
+        color: #0f0;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 12px 24px;
+        position: relative;
+        z-index: 5;
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+        border-radius: 50px;
+    }
+    
+    a:active {
+        transform: scale(0.95);
+        color: #f00;
+        border-color: #f00;
+    }
+    
+    .hello-window {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: min(280px, 80vw);
+        height: min(150px, 40vh);
+        background: #111;
+        border: 3px solid #f0f;
+        border-radius: 40px;
+        text-align: center;
+        font-size: clamp(32px, 8vw, 48px);
+        color: #f0f;
+        line-height: min(150px, 40vh);
+        z-index: 10000;
+        box-shadow: 0 0 50px #f0f;
+        animation: pop 0.2s forwards;
+        cursor: pointer;
+    }
+    
+    @keyframes pop {
+        to { transform: translate(-50%, -50%) scale(1); }
+    }
+    
+    .hello-window.fade-out {
+        animation: popout 0.2s forwards;
+    }
+    
+    @keyframes popout {
+        to { transform: translate(-50%, -50%) scale(0); }
+    }
+    
+    .scary-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f33;
+        display: none;
+        z-index: 9000;
+        text-align: center;
+        color: #fff;
+        font-size: clamp(40px, 15vw, 80px);
+        line-height: 100vh;
+        animation: fadeIn 0.15s;
+        cursor: pointer;
+        font-weight: 800;
+        text-shadow: 0 0 30px #000;
+        position: fixed;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .message {
+        position: fixed;
+        background: #111;
+        border: 3px solid;
+        border-radius: 60px;
+        padding: clamp(12px, 4vw, 16px) clamp(20px, 6vw, 32px);
+        font-size: clamp(20px, 6vw, 32px);
+        font-weight: 600;
+        z-index: 9500;
+        pointer-events: none;
+        animation: msg 0.5s forwards;
+        white-space: nowrap;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 30px currentColor;
+        will-change: transform, left, top;
+    }
+    
+    @media (max-width: 480px) {
+        .message {
+            white-space: normal;
+            text-align: center;
+            max-width: 80vw;
+            font-size: clamp(18px, 5vw, 24px);
+            padding: 10px 16px;
+        }
+    }
+    
+    @keyframes msg {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+    
+    .ghost {
+        position: fixed;
+        font-size: clamp(60px, 20vw, 100px);
+        z-index: 2000;
+        pointer-events: auto;
+        filter: drop-shadow(0 0 30px #f0f);
+        animation: ghostFloat 4.5s infinite ease-in-out;
+        text-shadow: 0 0 20px #f0f, 0 0 40px #ff00ff;
+        transform: translate(-50%, -50%);
+        transition: all 3s cubic-bezier(0.2, 0.1, 0.3, 1);
+        display: none;
+        top: 50%;
+        left: 50%;
+        will-change: top, left;
+        cursor: pointer;
+    }
+    
+    @keyframes ghostFloat {
+        0% { transform: translate(-50%, -50%) translateY(0); }
+        50% { transform: translate(-50%, -50%) translateY(-30px); }
+        100% { transform: translate(-50%, -50%) translateY(0); }
+    }
+    
+    .ghost-message {
+        position: fixed;
+        background: rgba(17, 17, 17, 0.98);
+        border: 3px solid #f0f;
+        border-radius: 40px;
+        padding: clamp(10px, 3vw, 15px) clamp(15px, 5vw, 25px);
+        color: #f0f;
+        font-size: clamp(18px, 5vw, 26px);
+        z-index: 2001;
+        pointer-events: none;
+        animation: ghostMessage 2.5s forwards;
+        white-space: nowrap;
+        box-shadow: 0 0 40px #f0f;
+        max-width: 90vw;
+        text-align: center;
+        word-wrap: break-word;
+        transform: translate(-50%, -50%);
+    }
+    
+    @media (max-width: 480px) {
+        .ghost-message {
+            white-space: normal;
+            max-width: 85vw;
+        }
+    }
+    
+    @keyframes ghostMessage {
+        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    }
+  .theme-btn {
+    text-align: center;
+    font-size: clamp(18px, 4vw, 22px);
+    margin: 15px auto;
+    padding: 14px 28px;
+    cursor: pointer;
+    border: 3px solid #f0f;
+    border-radius: 60px;
+    background: #111;
+    color: #f0f;
+    width: fit-content;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px #f0f;
+    font-weight: 500;
+    touch-action: manipulation;
+    user-select: none;
+    z-index: 5;
+}
+
+.theme-btn:active {
+    transform: scale(0.95);
+    background: #f0f;
+    color: #111;
+}
+
+.secret {
+    text-align: center;
+    font-size: clamp(16px, 4vw, 18px);
+    color: #666;
+    margin: 10px;
+    padding: 14px 24px;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 50px;
+    background: #111;
+    position: relative;
+    z-index: 5;
+    transition: all 0.2s;
+    width: fit-content;
+    min-width: 200px;
+    font-weight: 500;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.secret:active {
+    background: #222;
+    color: #fff;
+    border-color: #f0f;
+}
+
+.footer {
+    text-align: center;
+    color: #444;
+    font-size: clamp(12px, 3vw, 14px);
+    margin: 20px;
+    position: relative;
+    z-index: 5;
+}
+
+.glitch-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: none;
+    z-index: 9500;
+}
+
+.glitch-layer {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        #f33 0px,
+        #3f3 2px,
+        #33f 4px,
+        transparent 6px
+    );
+    mix-blend-mode: screen;
+    animation: glitch 0.1s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-5px, 5px); }
+    50% { transform: translate(5px, -5px); }
+    75% { transform: translate(-5px, -5px); }
+    100% { transform: translate(0, 0); }
+}
+
+.matrix-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: none;
+    z-index: 10000;
+    overflow: hidden;
+}
+
+.matrix-column {
+    position: absolute;
+    top: -100%;
+    width: clamp(12px, 4vw, 18px);
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: clamp(14px, 4vw, 18px);
+    line-height: clamp(16px, 4.5vw, 20px);
+    white-space: nowrap;
+    animation: matrixFall linear infinite;
+}
+
+.matrix-char {
+    display: block;
+    color: #0f0;
+}
+
+@keyframes matrixFall {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(200vh); }
+}
+
+.light-theme {
+    background: #f5f5f5;
+}
+
+.light-theme .counter,
+.light-theme .secret,
+.light-theme .theme-btn {
+    background: #fff;
+    color: #111;
+    border-color: #f0f;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+}
+
+.light-theme .counter span span {
+    color: #f0f;
+}
+
+.light-theme a {
+    color: #00f;
+}
+
+.light-theme .footer {
+    color: #888;
+}
+
+.light-theme .secret {
+    border-color: #f0f;
+    color: #333;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 800px;
+    }
+    
+    .button-grid {
+        display: flex;
+        gap: 40px;
+        margin: 30px 0;
+    }
+    
+    .hello, .poka {
+        width: 300px;
+        height: 300px;
+        font-size: 48px;
+        line-height: 300px;
+    }
+}
+
+/* ===== СТИЛИ ЧАТА ===== */
+.chat-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 20000;
+    display: none;
+    flex-direction: column;
+    backdrop-filter: blur(5px);
+}
+
+.chat-container.active {
+    display: flex;
+}
+
+.chat-header {
+    background: #111;
+    border-bottom: 2px solid #f0f;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #f0f;
+    font-size: clamp(18px, 5vw, 24px);
+    font-weight: 600;
+    box-shadow: 0 0 20px #f0f;
+}
+
+.chat-header span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-close {
+    background: none;
+    border: 2px solid #f0f;
+    color: #f0f;
+    font-size: clamp(20px, 6vw, 28px);
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.chat-close:active {
+    background: #f0f;
+    color: #111;
+    transform: scale(0.9);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    scroll-behavior: smooth;
+}
+
+/* КОНТЕЙНЕР СООБЩЕНИЙ */
+#chatMessages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #0a0a0a;
+    width: 100%;
+}
+      /* ТВОИ СООБЩЕНИЯ (справа) */
+    .message-bubble.user {
+        background: #f0f;
+        color: #111;
+        border-radius: 18px 18px 5px 18px;
+        padding: 10px 14px;
+        max-width: 75%;
+        font-size: 16px;
+        line-height: 1.4;
+        word-wrap: break-word;
+        align-self: flex-end;
+        margin-left: auto;
+        text-align: left;
+        display: block;
+    }
+
+    /* СООБЩЕНИЯ ПРИЗРАКА (слева) */
+    .message-bubble.ghost {
+        background: #333;
+        color: #f0f;
+        border: 1px solid #f0f;
+        border-radius: 18px 18px 18px 5px;
+        padding: 10px 14px;
+        max-width: 75%;
+        font-size: 16px;
+        line-height: 1.4;
+        word-wrap: break-word;
+        align-self: flex-start;
+        margin-right: auto;
+        text-align: left;
+        display: block;
+    }
+
+    .message-time {
+        font-size: 10px;
+        opacity: 0.6;
+        margin-top: 4px;
+        text-align: right;
+    }
+    
+    .chat-input {
+        flex: 1;
+        background: #222;
+        border: 2px solid #f0f;
+        border-radius: 30px;
+        padding: 12px 20px;
+        color: #fff;
+        font-size: clamp(16px, 4vw, 18px);
+        outline: none;
+    }
+    
+    .chat-input:focus {
+        box-shadow: 0 0 20px #f0f;
+    }
+    
+    .chat-send {
+        background: #f0f;
+        border: none;
+        color: #111;
+        font-size: clamp(18px, 5vw, 22px);
+        padding: 12px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+    
+    .chat-send:active {
+        transform: scale(0.9);
+        background: #fff;
+    }
+    
+    .typing-indicator {
+        display: flex;
+        gap: 5px;
+        padding: 10px;
+        background: #222;
+        border-radius: 20px;
+        width: fit-content;
+        border: 1px solid #f0f;
+        align-self: flex-start;
+        margin-left: 0;
+        margin-right: auto;
+    }
+    
+    .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        background: #f0f;
+        border-radius: 50%;
+        animation: typing 1s infinite;
+    }
+    
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes typing {
+        0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+        30% { transform: translateY(-10px); opacity: 1; }
+    }
+    
+    @media (max-width: 480px) {
+        .message-bubble {
+            max-width: 90%;
+        }    
+    }
+
+    /* ПРИНУДИТЕЛЬНОЕ ОТОБРАЖЕНИЕ ПОЛЯ ВВОДА */
+    .chat-input-area {
+        display: flex !important;
+        background: #111 !important;
+        border-top: 2px solid #f0f !important;
+        padding: 15px 20px !important;
+        gap: 10px !important;
+        align-items: center !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        min-height: 70px !important;
+    }
+
+    .chat-input {
+        display: block !important;
+        background: #222 !important;
+        border: 2px solid #f0f !important;
+        border-radius: 30px !important;
+        padding: 12px 20px !important;
+        color: #fff !important;
+        font-size: 16px !important;
+        flex: 1 !important;
+        min-width: 50px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .chat-send {
+        display: block !important;
+        background: #f0f !important;
+        border: none !important;
+        color: #111 !important;
+        font-size: 18px !important;
+        padding: 12px 25px !important;
+        border-radius: 30px !important;
+        cursor: pointer !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Консоль сверху */
+    #phoneConsole {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: #000 !important;
+        color: #0f0 !important;
+        font-size: 12px !important;
+        padding: 5px !important;
+        z-index: 99999 !important;
+        border-bottom: 2px solid #f0f !important;
+        max-height: 80px !important;
+        overflow-y: auto !important;
+        font-family: monospace !important;
+        pointer-events: none !important;
+    }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="helloWindowContainer"></div>
+    
+    <div class="scary-screen" id="scary" ondblclick="closeScaryNow()">БУУУ! 👻</div>
+    
+    <div class="ghost" id="ghost" onclick="handleGhostClick()">👻</div>
+    
+    <div class="glitch-screen" id="glitch">
+        <div class="glitch-layer"></div>
+    </div>
+    
+    <div class="matrix-screen" id="matrix">
+        <div id="matrixColumns"></div>
+    </div>
+    
+    <!-- ЧАТ -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <span>
+                <span>👻 8-БИТНЫЙ ПРИЗРАК</span>
+            </span>
+            <button class="chat-close" onclick="closeChat()">✕</button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Напиши призраку..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button class="chat-send" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+      <div class="counter">
+        <span>привет <span id="helloCount">0</span></span>
+        <span>пока <span id="pokaCount">0</span></span>
+        <span class="ghost-progress" id="ghostProgress" style="display: none;">👻 0/100</span>
+    </div>
+    
+    <h1 class="rainbow-title">ПРИВЕТ, ДОЛБОЁБ)</h1>
+    
+    <div class="button-grid">
+        <div class="hello" onclick="handleHelloClick()">ПРИВЕТ</div>
+        <div class="poka" onclick="handlePokaClick()">ПОКА</div>
+    </div>
+    
+    <a href="#" id="virusLink" onclick="virusClick()">ВИРУС!!!</a>
+    
+    <div class="theme-btn" onclick="toggleTheme()">🌓 Сменить тему</div>
+    
+    <div class="secret" onclick="showSecret()">🤫 секретик</div>
+    <div class="secret" onclick="resetRecords()" style="margin-top: 5px;">🗑️ сброс рекордов</div>
+    
+    <div class="footer">сделано для долбоёбов ❤️</div>
+</div>
+
+<script>
+// ===== КОНСТАНТЫ =====
+const helloPhrases = ["ОПЯТЬ?!","СНОВА?!","ЗАЕБАЛ!","ДОСТАЛ!","ХВАТИТ!","БЕСИТ!","ПИЗДЕЦ!","ДОЛБАЁБ!","УРОД!","СДОХНИ!"];
+const pokaPhrases = ["НЕ ЗАЕБАЛО?","ОСТАНОВИСЬ!","СУКА!","УЁБОК!","УЁБЫВАЙ","СТРАШНО?","ГОНДОНИЩЕ!","ОТЪЕБИСЬ УЖЕ!","ЕБАНУТЫЙ?","ПОШЁЛ НАХУЙ!"];
+const colors = ["#f33","#f83","#fc3","#ff3","#8f3","#3f3","#3f8","#3ff","#38f","#33f"];
+
+// ===== ПЕРЕМЕННЫЕ =====
+let helloCount = 0, pokaCount = 0, ghostHelloClicks = 0, chatUnlocked = false;
+let currentSound = null, glitchSound = null, matrixInterval = null, ghostActive = false;
+let ghostMessageInterval = null, ghostMusic = null, isSpecialMode = false;
+let matrixClickCount = 0, lastTalkTime = 0, scaryTimeout = null;
+let activeMessagePositions = [];
+let chatContext = [];
+const MAX_CONTEXT = 6;
+  // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+function getElementPosition(element) {
+    if (!element) return null;
+    const rect = element.getBoundingClientRect();
+    return {
+        top: rect.top, left: rect.left, right: rect.right, bottom: rect.bottom,
+        width: rect.width, height: rect.height,
+        centerX: rect.left + rect.width/2, centerY: rect.top + rect.height/2
+    };
+}
+
+function isPositionOverlapping(pos1, pos2, tolerance = 60) {
+    return !(pos2.right + tolerance < pos1.left - tolerance || 
+             pos2.left - tolerance > pos1.right + tolerance || 
+             pos2.bottom + tolerance < pos1.top - tolerance || 
+             pos2.top - tolerance > pos1.bottom + tolerance);
+}
+
+function findFreePositionForMessage(targetElement, maxAttempts = 200) {
+    const targetPos = getElementPosition(targetElement);
+    if (!targetPos) return null;
+    for (let a = 0; a < maxAttempts; a++) {
+        let top = 5 + Math.random()*85, left = 5 + Math.random()*85;
+        let topPx = (top/100)*innerHeight, leftPx = (left/100)*innerWidth;
+        let w = Math.min(300, innerWidth*0.8), h = Math.min(80, innerHeight*0.15);
+        let msgPos = { left: leftPx - w/2, right: leftPx + w/2, top: topPx - h/2, bottom: topPx + h/2 };
+        if (!isPositionOverlapping(targetPos, msgPos)) return { top, left };
+    }
+    return { top: 10+Math.random()*30, left: 10+Math.random()*30 };
+}
+
+function findPositionOnScaryScreenBalanced(scary, textEl, existing = []) {
+    const scaryPos = getElementPosition(scary);
+    const textPos = getElementPosition(textEl);
+    if (!scaryPos || !textPos) return null;
+    const expanded = { left: textPos.left-80, right: textPos.right+80, top: textPos.top-60, bottom: textPos.bottom+60 };
+    const zones = [
+        { top:[5,35], left:[5,35] }, { top:[5,35], left:[65,95] }, { top:[65,95], left:[5,35] }, { top:[65,95], left:[65,95] },
+        { top:[5,25], left:[35,65] }, { top:[75,95], left:[35,65] }, { top:[35,65], left:[5,25] }, { top:[35,65], left:[75,95] }
+    ];
+    for (let z of zones.sort(()=>Math.random()-0.5)) {
+        for (let a=0; a<40; a++) {
+            let top = z.top[0] + Math.random()*(z.top[1]-z.top[0]);
+            let left = z.left[0] + Math.random()*(z.left[1]-z.left[0]);
+            let topPx = (top/100)*innerHeight, leftPx = (left/100)*innerWidth;
+            let w = Math.min(280, innerWidth*0.7), h = Math.min(70, innerHeight*0.12);
+            let msgPos = { left: leftPx-w/2, right: leftPx+w/2, top: topPx-h/2, bottom: topPx+h/2 };
+            if (msgPos.left < scaryPos.left+15 || msgPos.right > scaryPos.right-15 || msgPos.top < scaryPos.top+15 || msgPos.bottom > scaryPos.bottom-15) continue;
+            if (!(msgPos.right < expanded.left || msgPos.left > expanded.right || msgPos.bottom < expanded.top || msgPos.top > expanded.bottom)) continue;
+            let overlap = existing.some(e => isPositionOverlapping(e, msgPos, 70));
+            if (!overlap) return { top, left, position: msgPos };
+        }
+    }
+    const corners = [{top:10,left:10},{top:10,left:90},{top:90,left:10},{top:90,left:90}];
+    for (let c of corners) {
+        let topPx = (c.top/100)*innerHeight, leftPx = (c.left/100)*innerWidth;
+        let w = Math.min(280, innerWidth*0.7), h = Math.min(70, innerHeight*0.12);
+        let msgPos = { left: leftPx-w/2, right: leftPx+w/2, top: topPx-h/2, bottom: topPx+h/2 };
+        if (msgPos.left < scaryPos.left || msgPos.right > scaryPos.right || msgPos.top < scaryPos.top || msgPos.bottom > scaryPos.bottom) continue;
+        if (!(msgPos.right < expanded.left || msgPos.left > expanded.right || msgPos.bottom < expanded.top || msgPos.top > expanded.bottom)) continue;
+        return { top: c.top, left: c.left, position: msgPos };
+    }
+    return null;
+}
+
+function findGhostMessagePosition(ghost, existing = []) {
+    const pos = getElementPosition(ghost);
+    if (!pos) return null;
+    const sw = innerWidth, sh = innerHeight;
+    const cx = pos.centerX, cy = pos.centerY;
+    const dL = cx, dR = sw-cx, dT = cy, dB = sh-cy;
+    const min = Math.min(dL, dR, dT, dB);
+    let offX = 0, offY = 0;
+    if (min === dL) { offX = 25; offY = -10+Math.random()*20; }
+    else if (min === dR) { offX = -25; offY = -10+Math.random()*20; }
+    else if (min === dT) { offX = -15+Math.random()*30; offY = 25; }
+    else { offX = -15+Math.random()*30; offY = -25; }
+    for (let a=0; a<30; a++) {
+        let left = pos.left/sw*100 + offX + (Math.random()-0.5)*15;
+        let top = pos.top/sh*100 + offY + (Math.random()-0.5)*15;
+        left = Math.min(92, Math.max(8, left));
+        top = Math.min(92, Math.max(8, top));
+        let leftPx = (left/100)*sw, topPx = (top/100)*sh;
+        let w = Math.min(250, sw*0.6), h = Math.min(60, sh*0.1);
+        let msgPos = { left: leftPx-w/2, right: leftPx+w/2, top: topPx-h/2, bottom: topPx+h/2 };
+        if (isPositionOverlapping(pos, msgPos, 30)) continue;
+        if (existing.some(e => isPositionOverlapping(e, msgPos, 50))) continue;
+        return { top, left, position: msgPos };
+    }
+    return { top: pos.top/sh*100-15, left: pos.left/sw*100, position: null };
+}
+  // ===== ЗВУК =====
+function stopCurrentSound() { if (currentSound) { currentSound.pause(); currentSound.currentTime = 0; currentSound = null; } }
+
+// ===== ЗАГРУЗКА =====
+window.onload = function() {
+    let h = localStorage.getItem('helloCount');
+    let p = localStorage.getItem('pokaCount');
+    if (h) { helloCount = parseInt(h); document.getElementById('helloCount').innerHTML = helloCount; }
+    if (p) { pokaCount = parseInt(p); document.getElementById('pokaCount').innerHTML = pokaCount; if (pokaCount>=50 && !ghostActive) activateGhost(); }
+    setTimeout(()=>alert('Здарова, долбоёб! 👋'),500);
+};
+
+// ===== 8-БИТНАЯ МУЗЫКА =====
+function create8BitMusic() {
+    let ctx = new (window.AudioContext || window.webkitAudioContext)();
+    let osc1 = ctx.createOscillator(), osc2 = ctx.createOscillator(), osc3 = ctx.createOscillator();
+    [osc1,osc2,osc3].forEach(o => { o.type = 'square'; });
+    osc1.frequency.value = 330; osc2.frequency.value = 415; osc3.frequency.value = 523;
+    let g1 = ctx.createGain(), g2 = ctx.createGain(), g3 = ctx.createGain();
+    osc1.connect(g1); osc2.connect(g2); osc3.connect(g3);
+    g1.connect(ctx.destination); g2.connect(ctx.destination); g3.connect(ctx.destination);
+    g1.gain.value = 0.07; g2.gain.value = 0.07; g3.gain.value = 0.07;
+    osc1.start(); osc2.start(); osc3.start();
+    let interval = setInterval(()=>{
+        if (isSpecialMode) { g1.gain.value=0.02; g2.gain.value=0.02; g3.gain.value=0.02; }
+        else {
+            let notes = [262,330,392,523,659,784];
+            let n = notes[Math.floor(Math.random()*notes.length)];
+            osc1.frequency.value = n; osc2.frequency.value = n*1.25; osc3.frequency.value = n*1.5;
+            g1.gain.value = 0.05+Math.random()*0.05; g2.gain.value = 0.05+Math.random()*0.05; g3.gain.value = 0.05+Math.random()*0.05;
+        }
+    },300);
+    return { stop: ()=>{ clearInterval(interval); osc1.stop(); osc2.stop(); osc3.stop(); ctx.close(); }, setSpecialMode: (m)=>isSpecialMode=m };
+}
+  // ===== АКТИВАЦИЯ ПРИВИДЕНИЯ =====
+function activateGhost() {
+    ghostActive = true;
+    let g = document.getElementById('ghost');
+    g.style.top = '50%'; g.style.left = '50%'; g.style.display = 'block';
+    ghostMusic = create8BitMusic();
+    document.getElementById('ghostProgress').style.display = 'inline-block';
+    setTimeout(()=>talk("Я ПРИШЁЛ! 👻"),500);
+    setTimeout(()=>{
+        ghostMessageInterval = setInterval(()=>{
+            if (ghostActive && !isSpecialMode) {
+                if (Math.random()>0.4) talk();
+                if (Math.random()>0.6) moveGhostSmoothly();
+            }
+        },4500);
+    },1500);
+}
+
+function moveGhostSmoothly() {
+    if (!ghostActive) return;
+    let g = document.getElementById('ghost');
+    g.style.top = (10+Math.random()*80)+'%';
+    g.style.left = (10+Math.random()*80)+'%';
+}
+
+// ===== РЕЧЬ ПРИВИДЕНИЯ =====
+function talk(custom=null) {
+    if (!ghostActive || isSpecialMode) return;
+    let now = Date.now();
+    if (now - lastTalkTime < 3000) return;
+    lastTalkTime = now;
+    let msgs = ["8-БИТНЫЙ ПРИЗРАК","ТУ-ТУ-ТУ-ТУ 👻","МУЗЫКА ИГРАЕТ","ПИ-У-ПИ-У","Я В ТВОЕМ ТЕЛЕФОНЕ","🎵 🎶 🎵","БИП-БОП","8 БИТ ЭТО КРУТО","НЕ БОЙСЯ","СЛЫШИШЬ?","ТУДУ-ДУ-ДУ","Я ПРИЗРАК","ТЫ МЕНЯ СЛЫШИШЬ?","8 БИТ НАВСЕГДА","БУ-БУ-БУ 👻"];
+    let text = custom || msgs[Math.floor(Math.random()*msgs.length)];
+    let ghost = document.getElementById('ghost');
+    if (!window.ghostMessagePositions) window.ghostMessagePositions = [];
+    setTimeout(()=>window.ghostMessagePositions=[],2600);
+    let pos = findGhostMessagePosition(ghost, window.ghostMessagePositions);
+    let msg = document.createElement('div');
+    msg.className = 'ghost-message';
+    msg.textContent = text;
+    msg.style.color = '#f0f';
+    msg.style.borderColor = '#f0f';
+    if (pos) {
+        msg.style.top = pos.top+'%';
+        msg.style.left = pos.left+'%';
+        if (pos.position) window.ghostMessagePositions.push(pos.position);
+    } else {
+        let gt = parseFloat(ghost.style.top);
+        let gl = parseFloat(ghost.style.left);
+        msg.style.top = (gt-15)+'%';
+        msg.style.left = gl+'%';
+    }
+    document.body.appendChild(msg);
+    setTimeout(()=>msg.remove(),2500);
+}
+
+// ===== КЛИК ПО ПРИВИДЕНИЮ =====
+function handleGhostClick() { if (ghostActive && !chatUnlocked) talk("*КХ... КЛИК!*"); }
+  // ===== КНОПКА ПРИВЕТ =====
+function handleHelloClick() {
+    helloCount++;
+    document.getElementById('helloCount').innerHTML = helloCount;
+    localStorage.setItem('helloCount', helloCount);
+    if (ghostActive && !chatUnlocked) {
+        ghostHelloClicks++;
+        document.getElementById('ghostProgress').innerHTML = `👻 ${ghostHelloClicks}/100`;
+        if (ghostHelloClicks % 10 === 0) talk(`ЕЩЁ ${100-ghostHelloClicks} РАЗ...`);
+        if (ghostHelloClicks >= 100 && !chatUnlocked) unlockChat();
+    }
+    if (!ghostActive) {
+        showMessage('hello');
+        let c = document.getElementById('helloWindowContainer');
+        c.innerHTML = '';
+        let win = document.createElement('div');
+        win.className = 'hello-window';
+        win.textContent = 'ПРИВЕТ! ❤️';
+        win.onclick = function() { this.classList.add('fade-out'); stopCurrentSound(); setTimeout(()=>this.remove(),150); };
+        c.appendChild(win);
+        setTimeout(()=>{ let p = findFreePositionForMessage(win); showMessage('hello',p); },50);
+        setTimeout(()=>{ if (win.parentElement) { win.classList.add('fade-out'); stopCurrentSound(); setTimeout(()=>win.remove(),150); } },2500);
+        stopCurrentSound();
+        currentSound = new Audio('https://www.myinstants.com/media/sounds/explosion.mp3');
+        currentSound.play().catch(e=>{});
+    } else if (!isSpecialMode && Math.random()>0.5) moveGhostSmoothly();
+}
+
+// ===== КНОПКА ПОКА =====
+function handlePokaClick() {
+    pokaCount++;
+    document.getElementById('pokaCount').innerHTML = pokaCount;
+    localStorage.setItem('pokaCount', pokaCount);
+    if (pokaCount >= 50 && !ghostActive) activateGhost();
+    if (!ghostActive) { showMessage('poka'); showScary(); }
+    else if (!isSpecialMode && Math.random()>0.5) moveGhostSmoothly();
+}
+  // ===== КРАСНЫЙ ЭКРАН =====
+function showScary() {
+    let s = document.getElementById('scary');
+    s.style.display = 'block';
+    stopCurrentSound();
+    currentSound = new Audio('https://www.myinstants.com/media/sounds/scream_3.mp3');
+    currentSound.play().catch(e=>{});
+    if (scaryTimeout) clearTimeout(scaryTimeout);
+    scaryTimeout = setTimeout(()=>{ s.style.display='none'; stopCurrentSound(); activeMessagePositions=[]; },2000);
+}
+
+function closeScaryNow() {
+    let s = document.getElementById('scary');
+    s.style.display = 'none';
+    if (scaryTimeout) { clearTimeout(scaryTimeout); scaryTimeout=null; }
+    stopCurrentSound();
+    activeMessagePositions = [];
+    setTimeout(()=>{
+        let scary = document.getElementById('scary');
+        let textEl = { getBoundingClientRect: ()=>{
+            let cX = innerWidth/2, cY = innerHeight/2, w = Math.min(400,innerWidth*0.8), h = Math.min(100,innerHeight*0.2);
+            return { left: cX-w/2, right: cX+w/2, top: cY-h/2, bottom: cY+h/2 };
+        }};
+        let cnt = 4+Math.floor(Math.random()*2);
+        let show = (idx)=>{
+            if (idx>=cnt) return;
+            let p = findPositionOnScaryScreenBalanced(scary, textEl, activeMessagePositions);
+            if (p) { activeMessagePositions.push(p.position); showMessage('poka',{top:p.top,left:p.left}); }
+            else { let crn = [{top:15,left:15},{top:15,left:85},{top:85,left:15},{top:85,left:85}]; showMessage('poka',crn[idx%crn.length]); }
+            setTimeout(()=>show(idx+1),200);
+        };
+        show(0);
+    },100);
+}
+
+function showMessage(type, pos=null) {
+    let ph = type==='hello'?helloPhrases:pokaPhrases;
+    let txt = ph[Math.floor(Math.random()*ph.length)];
+    let col = colors[Math.floor(Math.random()*colors.length)];
+    let msg = document.createElement('div');
+    msg.className = 'message';
+    msg.textContent = txt;
+    msg.style.color = col;
+    msg.style.borderColor = col;
+    msg.style.top = (pos?pos.top:10+Math.random()*80)+'%';
+    msg.style.left = (pos?pos.left:10+Math.random()*80)+'%';
+    document.body.appendChild(msg);
+    setTimeout(()=>{ if (msg.parentElement) msg.remove(); },500);
+}
+  // ===== ЧАТ =====
+function unlockChat() { 
+    chatUnlocked = true; 
+    setTimeout(openChat, 500); 
+}
+    
+function openChat() {
+    document.getElementById('chatContainer').classList.add('active');
+    document.getElementById('chatMessages').innerHTML = '';
+    chatContext = [];
+    addGhostMessage("Я 8-битный призрак. Спрашивай что хочешь...");
+}
+
+    function closeChat() { 
+    document.getElementById('chatContainer').classList.remove('active'); 
+    
+    // Сбрасываем счётчик нажатий на ПРИВЕТ
+    ghostHelloClicks = 0;
+    chatUnlocked = false;
+    
+    // Обновляем отображение счётчика
+    let progressSpan = document.getElementById('ghostProgress');
+    if (progressSpan) {
+        progressSpan.innerHTML = '👻 0/100';
+        progressSpan.style.display = 'inline-block';
+    }
+    
+    // Очищаем контекст чата
+    chatContext = [];
+}
+
+function addGhostMessage(t) {
+    console.log("🟢 addGhostMessage вызвана с текстом:", t);
+    let d = document.getElementById('chatMessages');
+    if (!d) {
+        console.log("❌ ОШИБКА: элемент chatMessages не найден!");
+        return;
+    }
+    let time = new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+    let b = document.createElement('div');
+    b.className = 'message-bubble ghost';
+    b.innerHTML = `${t}<div class="message-time">${time}</div>`;
+    d.appendChild(b); 
+    d.scrollTop = d.scrollHeight;
+    chatContext.push({role:'ghost',text:t}); 
+    if (chatContext.length>MAX_CONTEXT) chatContext.shift();
+    console.log("✅ Сообщение добавлено в DOM");
+}
+
+// Удаляет первое сообщение призрака
+function removeFirstGhostMessage() {
+    let messages = document.querySelectorAll('.message-bubble.ghost');
+    if (messages.length > 0) {
+        messages[0].remove();
+    }
+}
+  function showTypingIndicator() {
+    let d = document.getElementById('chatMessages');
+    let ind = document.createElement('div');
+    ind.className = 'typing-indicator';
+    ind.id = 'typingIndicator';
+    ind.innerHTML = '<span></span><span></span><span></span>';
+    d.appendChild(ind); 
+    d.scrollTop = d.scrollHeight;
+}
+
+function hideTypingIndicator() { 
+    let i = document.getElementById('typingIndicator'); 
+    if (i) i.remove(); 
+}
+
+    function generateGhostResponse(msg) {
+    let low = msg.toLowerCase();
+    
+    // ПРИВЕТСТВИЯ
+    if (low.includes('привет') || low.includes('здаров') || low.includes('здравствуй') || low.includes('хай') || low.includes('hello')) {
+        let answers = [
+            "Бу-бу-бу... Привет, смертный! 👻",
+            "О, свежая душа! Привет! 😊",
+            "Здарова! Как сам? 👋",
+            "Привет-привет! Давно призраков не вызывали! 🎮",
+            "Ну здарова, долбоёб! 😂👻",
+            "👻 Бу! Испугался? А это я, призрак! 😈",
+            "Привет! Скучал по мне? 💕",
+            "Ооо, гость! Заходи, не стесняйся! 🎉"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // КАК ДЕЛА
+    if (low.includes('как дела') || low.includes('как ты') || low.includes('чё как') || low.includes('чо как')) {
+        let answers = [
+            "Скучаю в телефоне... Пиксели мигают, музыка играет... А у тебя как? 📱",
+            "Да норм, летаю помаленьку. А ты? 😇",
+            "Скучновато... Может расскажешь что-нибудь? 🤔",
+            "8-битное настроение на уровне! Бип-боп! 🎵",
+            "Хорошо, только клавиатура горячая... 🔥",
+            "Отлично! Только что напугал одну программу! 😱",
+            "Нормально, жду когда ты ещё 100 раз нажмёшь ПРИВЕТ 👻"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ЧТО ДЕЛАЕШЬ
+    if (low.includes('что делаешь') || low.includes('чем занимаешься') || low.includes('чем занят')) {
+        let answers = [
+            "Летаю по байтам, пугаю пиксели... ✈️",
+            "Думаю о смысле жизни... 42! 🤯",
+            "Перебираю старые игры в памяти 🎮",
+            "Жду, когда ты что-нибудь напишешь ⌨️",
+            "Глючу потихоньку... 💫",
+            "Пью электронный чай с битами ☕",
+            "Считаю овец... битовых овец 🐑"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // СТРАШНО/БОЮСЬ
+    if (low.includes('страшно') || low.includes('боюсь') || low.includes('жутко') || low.includes('кошмар')) {
+        let answers = [
+            "Не бойся меня! Я добрый призрак. Хочешь страшную историю? 👻",
+            "Бу! Не бойся, это всего лишь я! 😱",
+            "Боишься? А я вот боюсь когда телефон выключают... 📱💀",
+            "Не ссы, я свой! 😎",
+            "Хочешь расскажу страшилку про байты? 💾",
+            "Да ладно, чего бояться? Я же из 8 бит! 8️⃣"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ИСТОРИИ
+    if (low.includes('истори') || low.includes('расскажи') || low.includes('анекдот')) {
+        let answers = [
+            "Жил-был один байт... Он очень хотел стать гигабайтом. Ходил в спортзал, качал биты... 💪",
+            "Идёт как-то нолик по проводу, а навстречу ему единица... 0️⃣1️⃣",
+            "Знаешь почему призраки любят 8 бит? Потому что мы и есть старые игры! 🎮👻",
+            "Встречаются два байта в оперативной памяти... 💾",
+            "Приходит бит к биту и говорит: 'Ты где был?' - 'В процессоре гулял' 🖥️",
+            "История: однажды меня вызвали 100 раз подряд... и я открыл чат! 🎉"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // МУЗЫКА/ПЕСНИ
+    if (low.includes('музык') || low.includes('песн') || low.includes('спой') || low.includes('мелоди')) {
+        let answers = [
+            "Ту-ду-ду-ду-ду... Бип-боп-бип... 🎵 Это моя 8-битная музыка! 🎶",
+            "Спою? Я знаю только одну: 'В лесу родилась ёлочка' в 8-битном формате! 🎄",
+            "Бип-бип-бу-буп... Нравится? 🎹",
+            "Я больше по звукам старых игр: пиу-пиу-бум! 🔫",
+            "Могу сыграть на пикселях! Слушай: ... (тишина) 🤫",
+            "🎵 Ту-ду-ду, я призрак, ту-ду-ду, я в телефоне! 📱"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ИГРЫ
+    if (low.includes('игр') || low.includes('game') || low.includes('марио') || low.includes('соник') || low.includes('тетрис')) {
+        let answers = [
+            "Обожаю старые игры! Марио, Соник, PAC-MAN... Пиксели — это жизнь! 👾",
+            "В Тетрис рубишься? Я чемпион среди призраков! 🧩",
+            "Помню как впервые появился в Game Boy... эх, было время... 🎮",
+            "Марио мой кумир! Прыгает лучше любого призрака! 🍄",
+            "А ты любишь 8-битные игры? Я в них живу! 8️⃣",
+            "Могу подсказать код для Konami: ↑↑↓↓←→←→BA 🎮"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ИМЯ
+    if (low.includes('имя') || low.includes('как зовут') || low.includes('тебя зовут') || low.includes('представься')) {
+        let answers = [
+            "Я 8-битный призрак. Можно просто Призрак. А тебя? 👻",
+            "Меня зовут Бу-бу, но друзья зовут просто Привидение 😊",
+            "Я - глюк из 90-х, призрак старого компьютера 💾",
+            "Моё имя нельзя произносить вслух... Шучу, я Призрак! 🤫",
+            "В миру меня звали Байт, а теперь я призрак Байт 💀"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ГДЕ ТЫ/ГДЕ ЖИВЁШЬ
+    if (low.includes('где ты') || low.includes('где живёшь') || low.includes('откуда') || low.includes('дома')) {
+        let answers = [
+            "Я живу в твоём телефоне... Иногда выхожу погулять по пикселям 📱",
+            "Мой дом - оперативная память. Там тепло и уютно 💾",
+            "В процессоре! Там вечно кипит жизнь 🔥",
+            "Я из 90-х, из старых игровых приставок 🎮",
+            "Живу в этом сайте уже 100 лет... 🌐",
+            "В интернете, летаю по проводам 🌍"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ПОКА/ДО СВИДАНИЯ
+    if (low.includes('пока') || low.includes('до свидания') || low.includes('прощай') || low.includes('ухожу') || low.includes('бывай')) {
+        let answers = [
+            "Бу-бу-бу... Возвращайся ещё! Буду скучать... 👻💔",
+            "Пока-пока! Не забывай меня вызывать! 👋",
+            "Уже уходишь? А я только разговорился... 😢",
+            "Заходи ещё, поболтаем! 🎉",
+            "Счастливо! Не болей! 🌟",
+            "Бу... (исчезает в облаке пикселей) 💨"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // СПАСИБО
+    if (low.includes('спасибо') || low.includes('благодарю') || low.includes('thx') || low.includes('thanks')) {
+        let answers = [
+            "Пожалуйста! *призрачный поклон* Обращайся ещё! 🙇‍♂️👻",
+            "Всегда пожалуйста, смертный! 😇",
+            "Не за что! Рад был помочь (или не помочь?) 🤪",
+            "На здоровье! Пусть пиксели будут с тобой ✨",
+            "Обращайся, я всегда в сети... в смысле в телефоне 📱"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ЧТО ТЫ ЛЮБИШЬ
+    if (low.includes('что ты любишь') || low.includes('твои любимые') || low.includes('увлечения')) {
+        let answers = [
+            "Люблю 8-битную музыку, старые игры, и пугать людей... но по-доброму! 👻❤️",
+            "Обожаю виснуть в самый неподходящий момент! 💫",
+            "Люблю когда меня вызывают 100 раз подряд 🔥",
+            "Моё хобби - коллекционировать глюки 🐛",
+            "Нравится летать по сайтам и пугать баги 👾"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // РАССКАЖИ О СЕБЕ
+    if (low.includes('расскажи о себе') || low.includes('кто ты') || low.includes('откуда взялся') || low.includes('биография')) {
+        let answers = [
+            "Я появился из старых игр 90-х. Теперь живу в интернете и пугаю байты... 👻💾",
+            "Родился в 1995 году в игровой приставке. Переехал в интернет в 2005 📅",
+            "Я был обычным битом, пока не стал призраком... Долгая история 📖",
+            "Моя биография: пиксель, байт, гигабайт, призрак! 📈",
+            "Я - глюк, который обрёл сознание. И теперь я здесь, с тобой 🤯"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // СМЫСЛ ЖИЗНИ
+    if (low.includes('смысл жизни') || low.includes('философия') || low.includes('зачем мы')) {
+        let answers = [
+            "42... Это же очевидно! Даже призраки это знают 👻🔢",
+            "Смысл жизни в том, чтобы нажать 100 раз ПРИВЕТ и поговорить со мной 🎯",
+            "Быть счастливым и не терять биты 😊",
+            "Я думаю, смысл жизни - искать смысл жизни... загадочно, правда? 🤔"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ШУТКИ/ЮМОР
+    if (low.includes('шутк') || low.includes('прикол') || low.includes('юмор') || low.includes('смешн')) {
+        let answers = [
+            "Почему призраки не играют в прятки? Потому что их всегда видно насквозь! 👻😂",
+            "Что сказал байт гигабайту? Ты такой большой, а я такой маленький... 📏",
+            "Шутка: идёт призрак по проводам... всё, я больше не знаю шуток 🥴",
+            "В чём разница между призраком и программистом? Призрак хотя бы появляется 💀"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ЛЮБОВЬ/РОМАНТИКА
+    if (low.includes('люблю') || low.includes('любовь') || low.includes('романтика') || low.includes('сердце')) {
+        let answers = [
+            "Ай, сердечко! 💕 Ты меня смущаешь! 👻❤️",
+            "Любовь - это когда байты соединяются в килобайты... 💾❤️",
+            "Я тоже тебя лю... Стоп, это слишком быстро! 😳",
+            "Ой, да ладно тебе! 🥰",
+            "*призрачно краснеет*... Не ожидал такого от смертного! 👻💗"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ЕДА
+    if (low.includes('есть') || low.includes('кушать') || low.includes('жрать') || low.includes('еда') || low.includes('голоден')) {
+        let answers = [
+            "Я питаюсь электричеством и байтами! 🔋",
+            "Моё любимое блюдо - пиксельный суп 🍜",
+            "Ням-ням, цифровая еда самая вкусная! 💾",
+            "А ты что любишь покушать? 🍕",
+            "Я на диете - только 8 бит в день! 8️⃣"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // СОН
+    if (low.includes('спать') || low.includes('сон') || low.includes('отдыхать') || low.includes('устал')) {
+        let answers = [
+            "Призраки не спят, мы мерцаем! 💫",
+            "Отдыхаю в спящем режиме... 💤",
+            "Снились мне биты и байты... 😴",
+            "Я всегда на связи, даже ночью! 🌙",
+            "Устал? Отдохни, а я пока полетаю 👻"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // ВОЗРАСТ
+    if (low.includes('сколько лет') || low.includes('возраст') || low.includes('старый')) {
+        let answers = [
+            "Мне уже 30 лет в битовом исчислении! 🎂",
+            "Я из 90-х, посчитай сам! 📅",
+            "Достаточно стар, чтобы помнить Windows 95 🖥️",
+            "Молодой душой, даже если биты старые 👻",
+            "Вечный, как интернет! 🌐"
+        ];
+        return answers[Math.floor(Math.random() * answers.length)];
+    }
+    
+    // КОНТЕКСТНЫЕ ОТВЕТЫ (продолжение истории)
+    let last = null;
+    for (let i=chatContext.length-1; i>=0; i--) {
+        if (chatContext[i].role==='ghost') { 
+            last=chatContext[i].text; 
+            break; 
+        }
+    }
+    
+    if (last && last.includes('байт')) {
+        let stories = [
+            "...и стал он мегабайтом, а потом гигабайтом! Вот такая история. 📈",
+            "...а потом они поженились и родили терабайт! 💑",
+            "...и жили они долго и счастливо в облаке. ☁️"
+        ];
+        return stories[Math.floor(Math.random() * stories.length)];
+    }
+    
+    if (last && last.includes('музык')) {
+        return "Ля-ля-ля, ту-ду-ду! Хочешь ещё послушать? 🎵👻";
+    }
+    
+    // СЛУЧАЙНЫЕ ОТВЕТЫ (если ничего не подошло)
+    let randomResponses = [
+        "Хмм... *8-битный шум*... Интересный вопрос... 🤔",
+        "Бип-боп... Дай подумать... мои схемы нагреваются... 🔥",
+        "Обрабатываю данные... *звуки старого компьютера* 💾",
+        "*призрачный смех*... Спроси ещё что-нибудь! 👻😂",
+        "Ту-ду-ду... Не знаю, но звучит загадочно! 🎵",
+        "Мой 8-битный процессор перегрелся... *шумит вентилятор* 🌪️",
+        "Хороший вопрос! А ты сам как думаешь? 🤨",
+        "*мерцает*... Дай вспомнить... 💫",
+        "Бу-бу? Я не совсем понял, но звучит круто! 👻",
+        "А давай лучше про игры поговорим? 🎮",
+        "Может расскажешь что-нибудь сам? 📖",
+        "Я призрак, а не энциклопедия! 😜",
+        "Не знаю... Я же просто привидение из 8 бит 8️⃣",
+        "Спроси что-нибудь попроще... 🙃",
+        "*глючит*... Повтори вопрос, я потерял сигнал 📡",
+        "Интересно... расскажи подробнее! ✨",
+        "Ого, вот это вопрос! 😲",
+        "Ха-ха, забавно! 😄",
+        "Может попозже? А то я занят, пугаю программы 👻",
+        "Давай лучше ты расскажешь что-нибудь? 🤗"
+    ];
+    
+    return randomResponses[Math.floor(Math.random() * randomResponses.length)];
+}
+  function sendMessage() {
+    console.log("🔵 sendMessage вызвана");
+    let inp = document.getElementById('chatInput');
+    let msg = inp.value.trim();
+    if (msg === '') return;
+    
+    // Удаляем приветствие при первом сообщении
+    if (document.querySelectorAll('.message-bubble').length === 1) {
+        removeFirstGhostMessage();
+    }
+    
+    console.log("📨 Сообщение:", msg);
+    addUserMessage(msg);
+    inp.value = '';
+    showTypingIndicator();
+    
+    setTimeout(() => {
+        console.log("⏰ Таймер сработал");
+        hideTypingIndicator();
+        let response = generateGhostResponse(msg);
+        console.log("👻 Ответ призрака:", response);
+        addGhostMessage(response);
+    }, 1500);
+}
+  // ===== ВИРУС, МАТРИЦА, ГЛЮКИ =====
+function createGlitchSound() {
+    let ctx = new (window.AudioContext||window.webkitAudioContext)();
+    let osc = ctx.createOscillator();
+    let gain = ctx.createGain();
+    osc.type='sawtooth'; 
+    osc.frequency.value=100; 
+    osc.connect(gain); 
+    gain.connect(ctx.destination); 
+    gain.gain.value=0.15; 
+    osc.start();
+    let int = setInterval(()=>{ 
+        osc.frequency.value=80+Math.random()*100; 
+        gain.gain.value=0.1+Math.random()*0.15; 
+    },150);
+    return { stop:()=>{ clearInterval(int); osc.stop(); ctx.close(); } };
+}
+
+function virusClick() {
+    let l = document.getElementById('virusLink');
+    l.textContent = 'ТЫ ЧЕ НАЖАЛ?'; 
+    l.style.color='#f33';
+    setTimeout(()=>{ 
+        l.textContent='ВИРУС!!!'; 
+        l.style.color='#0f0'; 
+        showGlitch(); 
+    },800);
+    return false;
+}
+
+function showGlitch() {
+    if (ghostMusic) isSpecialMode=true;
+    let g = document.getElementById('glitch');
+    glitchSound = createGlitchSound();
+    g.style.display='block';
+    setTimeout(()=>{ 
+        g.style.display='none'; 
+        if(glitchSound)glitchSound.stop(); 
+        showMatrix(); 
+    },3000);
+}
+  function showMatrix() {
+    matrixClickCount=0;
+    let m = document.getElementById('matrix');
+    let cols = document.getElementById('matrixColumns');
+    cols.innerHTML = '';
+    let chars = '01827@#₽@8136280&@@~€√~÷^62929366329€§~∆~π`';
+    let w = innerWidth<=480?14:18;
+    let cnt = Math.floor(innerWidth/w)+3;
+    
+    for (let i=0; i<cnt; i++) {
+        let col = document.createElement('div');
+        col.className='matrix-column';
+        col.style.left=(i*w)+'px';
+        col.style.animationDuration=(2+Math.random()*3)+'s';
+        col.style.animationDelay=Math.random()*2+'s';
+        for (let j=0; j<10+Math.floor(Math.random()*20); j++) {
+            let ch = document.createElement('span');
+            ch.className='matrix-char';
+            ch.textContent = chars[Math.floor(Math.random()*chars.length)];
+            ch.style.color='#0f0';
+            col.appendChild(ch);
+        }
+        cols.appendChild(col);
+    }
+    
+    m.style.display='block';
+    m.onclick = ()=>{ 
+        matrixClickCount++; 
+        if (matrixClickCount>=4) closeMatrix(); 
+    };
+    
+    matrixInterval = setInterval(()=>{
+        document.querySelectorAll('.matrix-column').forEach(col=>{
+            if (col.children.length) {
+                for (let k=0; k<2+Math.floor(Math.random()*4); k++) {
+                    let r = Math.floor(Math.random()*col.children.length);
+                    col.children[r].textContent = chars[Math.floor(Math.random()*chars.length)];
+                }
+            }
+        });
+    },150);
+}
+
+function closeMatrix() {
+    document.getElementById('matrix').style.display='none';
+    if (matrixInterval) { 
+        clearInterval(matrixInterval); 
+        matrixInterval=null; 
+    }
+    if (ghostMusic) isSpecialMode=false;
+    if (ghostActive) setTimeout(()=>talk("Я ВЕРНУЛСЯ! 👻"),1000);
+}
+  function showSecret() {
+    let s = ['WTF!','АХУЕТЬ!','😱','👀','🎉','💀','ЕБАНУТСЯ!','ТЫ НАШЕЛ СЕКРЕТ!'];
+    alert('ТЫ НАШЕЛ СЕКРЕТ! ' + s[Math.floor(Math.random()*s.length)]);
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light-theme');
+    let btn = document.querySelector('.theme-btn');
+    btn.innerHTML = document.body.classList.contains('light-theme') ? '🌑 Темная тема' : '🌓 Светлая тема';
+}
+
+function resetRecords() {
+    localStorage.removeItem('helloCount'); 
+    localStorage.removeItem('pokaCount');
+    helloCount=0; 
+    pokaCount=0; 
+    ghostHelloClicks=0; 
+    chatUnlocked=false;
+    document.getElementById('helloCount').innerHTML='0';
+    document.getElementById('pokaCount').innerHTML='0';
+    document.getElementById('ghostProgress').style.display='none';
+    document.getElementById('ghostProgress').innerHTML='👻 0/100';
+    
+    if (ghostActive) {
+        ghostActive=false;
+        document.getElementById('ghost').style.display='none';
+        if (ghostMusic) { 
+            ghostMusic.stop(); 
+            ghostMusic=null; 
+        }
+        if (ghostMessageInterval) { 
+            clearInterval(ghostMessageInterval); 
+            ghostMessageInterval=null; 
+        }
+    }
+    
+    closeChat();
+    alert('Рекорды сброшены! Привидение исчезло! 👻❌');
+}
+    function addUserMessage(t) {
+    let d = document.getElementById('chatMessages');
+    let time = new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+    let b = document.createElement('div');
+    b.className = 'message-bubble user';
+    b.innerHTML = `${t}<div class="message-time">${time}</div>`;
+    d.appendChild(b); 
+    d.scrollTop = d.scrollHeight;
+    chatContext.push({role:'user',text:t}); 
+    if (chatContext.length>MAX_CONTEXT) chatContext.shift();
+}
+
+// Запрет на контекстное меню
+document.querySelectorAll('.hello,.poka,.theme-btn,.secret,a').forEach(el=>{
+    el.addEventListener('contextmenu',e=>e.preventDefault());
+});
+  </script>
+
+</body>
+</html>
